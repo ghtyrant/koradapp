@@ -11,7 +11,12 @@ void on_embedded()
     printf("Embedded!\n");
 }
 
-gulong[] initialize_plugin()
+void destroy_plugin()
+{
+    return;
+}
+
+gulong* initialize_plugin()
 {
     GtkBuilder *builder;
     builder = gtk_builder_new();
@@ -39,7 +44,12 @@ gulong[] initialize_plugin()
     gtk_widget_show_all(GTK_WIDGET(plug));
 
     printf("Plug-ID: %lu\n", gtk_plug_get_id(GTK_PLUG(plug)));
-    return { gtk_plug_get_id(GTK_PLUG(plug)), 0 };
+
+    gulong *views = g_new0(gulong, 2);
+
+    views[0] = gtk_plug_get_id(GTK_PLUG(plug));
+
+    return views;
 
 
     /* Set up CSS style provider */
