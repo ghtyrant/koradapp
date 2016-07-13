@@ -137,6 +137,7 @@
                                 <property name="valign">start</property>
                                 <property name="image">Add1</property>
                                 <property name="always_show_image">True</property>
+                                <signal name="clicked" handler="on_voltage_add_ten" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -154,29 +155,11 @@
                                 <property name="valign">start</property>
                                 <property name="image">Remove1</property>
                                 <property name="always_show_image">True</property>
+                                <signal name="clicked" handler="on_voltage_substract_ten" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
                                 <property name="top_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="Voltage Display Ten">
-                                <property name="width_request">50</property>
-                                <property name="height_request">60</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">start</property>
-                                <property name="valign">start</property>
-                                <property name="editable">False</property>
-                                <property name="max_length">1</property>
-                                <property name="width_chars">1</property>
-                                <property name="text" translatable="yes">0</property>
-                                <property name="input_purpose">digits</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">1</property>
                               </packing>
                             </child>
                             <child>
@@ -226,6 +209,25 @@
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
+                                <property name="top_attach">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="Voltage Display Ten">
+                                <property name="width_request">50</property>
+                                <property name="height_request">60</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">start</property>
+                                <property name="valign">start</property>
+                                <property name="editable">False</property>
+                                <property name="max_length">1</property>
+                                <property name="width_chars">1</property>
+                                <property name="text" translatable="yes">0</property>
+                                <property name="input_purpose">digits</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
                                 <property name="top_attach">1</property>
                               </packing>
                             </child>
@@ -417,7 +419,7 @@
                             <property name="column_spacing">3</property>
                             <property name="column_homogeneous">True</property>
                             <child>
-                              <object class="GtkButton" id="Current Add One1">
+                              <object class="GtkButton" id="Current Add One">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -434,7 +436,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Substract One1">
+                              <object class="GtkButton" id="Current Substract One">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -449,7 +451,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="Current Display One1">
+                              <object class="GtkEntry" id="Current Display One">
                                 <property name="width_request">50</property>
                                 <property name="height_request">60</property>
                                 <property name="visible">True</property>
@@ -497,7 +499,7 @@
                             <property name="valign">start</property>
                             <property name="column_spacing">3</property>
                             <child>
-                              <object class="GtkButton" id="Current Add Tenth1">
+                              <object class="GtkButton" id="Current Add Tenth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -514,7 +516,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Substract Tenth1">
+                              <object class="GtkButton" id="Current Substract Tenth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -531,7 +533,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="Current Display Tenth1">
+                              <object class="GtkEntry" id="Current Display Tenth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">60</property>
                                 <property name="visible">True</property>
@@ -550,7 +552,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Add Hundredth1">
+                              <object class="GtkButton" id="Current Add Hundredth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -567,7 +569,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Substract Hundredth1">
+                              <object class="GtkButton" id="Current Substract Hundredth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -582,7 +584,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="Current Display Hundredth1">
+                              <object class="GtkEntry" id="Current Display Hundredth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">60</property>
                                 <property name="visible">True</property>
@@ -601,7 +603,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Add Thousandth1">
+                              <object class="GtkButton" id="Current Add Thousandth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -618,7 +620,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkEntry" id="Current Display Thousandth1">
+                              <object class="GtkEntry" id="Current Display Thousandth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">60</property>
                                 <property name="visible">True</property>
@@ -637,7 +639,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="Current Substract Thousandth1">
+                              <object class="GtkButton" id="Current Substract Thousandth">
                                 <property name="width_request">50</property>
                                 <property name="height_request">50</property>
                                 <property name="visible">True</property>
@@ -722,6 +724,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="toggled" handler="on_ocp_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -739,6 +742,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="toggled" handler="on_ovp_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -786,6 +790,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="toggled" handler="on_save_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -802,6 +807,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="clicked" handler="on_m1_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -818,6 +824,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="clicked" handler="on_m2_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -834,6 +841,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="clicked" handler="on_m3_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -850,6 +858,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="clicked" handler="on_m4_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -866,6 +875,7 @@
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
                         <property name="valign">start</property>
+                        <signal name="clicked" handler="on_m5_clicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
