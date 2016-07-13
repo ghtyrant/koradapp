@@ -24,7 +24,7 @@ libkorad_run(gpointer user_data)
 }
 
 GtkBuilder *
-load_ui()
+load_ui(AppState *state)
 {
     GtkBuilder *builder;
     builder = gtk_builder_new();
@@ -37,6 +37,8 @@ load_ui()
         g_error_free(error);
         return NULL;
     }
+
+    gtk_builder_connect_signals( builder, state );
 
     return builder;
 }
@@ -52,20 +54,19 @@ on_output_toggle(GtkToggleButton *button, gpointer user_data)
 void
 setup_view_main(gulong socket_id, AppState *state)
 {
-    GtkBuilder *builder = load_ui();
+    GtkBuilder *builder = load_ui(state);
     GtkContainer *window = GTK_CONTAINER(gtk_builder_get_object(builder, "Main Window"));
     GtkWidget *box = GTK_WIDGET(gtk_builder_get_object(builder, "Outer Box"));
     g_object_ref(box);
     g_info("Starting view 'main' on socket %lu", socket_id);
     GtkWidget *plug = gtk_plug_new(socket_id);
 
-
     gtk_container_remove(window, box);
     gtk_container_add(GTK_CONTAINER(plug), box);
     gtk_widget_show_all(GTK_WIDGET(plug));
 
-    GtkWidget *output = GTK_WIDGET(gtk_builder_get_object(builder, "Output"));
-    g_signal_connect(output, "toggled", G_CALLBACK(on_output_toggle), state);
+    //GtkWidget *output = GTK_WIDGET(gtk_builder_get_object(builder, "Output"));
+    //g_signal_connect(output, "toggled", G_CALLBACK(on_output_toggle), state);
 
 }
 
@@ -97,13 +98,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-        GtkBuilder *builder = load_ui();
+        GtkBuilder *builder = load_ui(state);
         GtkContainer *window = GTK_CONTAINER(gtk_builder_get_object(builder, "Main Window"));
 
         gtk_widget_show_all(GTK_WIDGET(window));
-
-        GtkWidget *output = GTK_WIDGET(gtk_builder_get_object(builder, "Output"));
-        g_signal_connect(output, "toggled", G_CALLBACK(on_output_toggle), state);
     }
 
     GThread *korad_thread = g_thread_new("KoradComm", libkorad_run, state);
