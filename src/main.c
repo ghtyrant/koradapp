@@ -3,6 +3,7 @@
 #include <korad.h>
 
 #include "plugin.h"
+#include "koradapp.h"
 
 void app_shutdown(gpointer user_data)
 {
@@ -25,11 +26,13 @@ libkorad_run(gpointer user_data)
     return NULL;
 }
 
-void on_embedded(gpointer user_data)
+void *on_embedded(gpointer user_data)
 {
     AppState *state = (AppState*) user_data;
 
     g_thread_new("KoradComm", libkorad_run, state);
+
+    return NULL;
 }
 
 void destroy_plugin()
@@ -61,7 +64,7 @@ initialize_plugin()
 
     AppState *state = g_new0(AppState, 1);
 
-    g_signal_connect(plug, "embedded", on_embedded, state);
+    g_signal_connect(plug, "embedded", G_CALLBACK(on_embedded), state);
     gtk_container_remove(window, box);
     gtk_container_add(GTK_CONTAINER(plug), box);
 
