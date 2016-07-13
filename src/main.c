@@ -1,5 +1,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include <korad.h>
+
 #include "plugin.h"
 
 void app_shutdown(gpointer user_data)
@@ -7,9 +9,27 @@ void app_shutdown(gpointer user_data)
     gtk_main_quit();
 }
 
-void on_embedded()
+gpointer
+libkorad_run(gpointer user_data)
 {
-    printf("Embedded!\n");
+    AppState *state = (AppState*) user_data;
+
+    if (korad_device_find(&state->device) != KORAD_OK)
+        return NULL;
+
+    g_info("Found Korad Power Supply: %s", state->device->known_device->name);
+
+    korad_run(state->device);
+
+    korad_device_free(state->device);
+    return NULL;
+}
+
+void on_embedded(gpointer user_data)
+{
+    AppState *state = (AppState*) user_data;
+
+    g_thread_new("KoradComm", libkorad_run, state);
 }
 
 void destroy_plugin()
@@ -39,7 +59,9 @@ initialize_plugin()
 
     GtkWidget *plug = gtk_plug_new(0L);
 
-    g_signal_connect(plug, "embedded", on_embedded, NULL);
+    AppState *state = g_new0(AppState, 1);
+
+    g_signal_connect(plug, "embedded", on_embedded, state);
     gtk_container_remove(window, box);
     gtk_container_add(GTK_CONTAINER(plug), box);
 

@@ -5,8 +5,8 @@ LD := $(CC)
 GLIB_CFLAGS  := $(shell pkg-config --cflags gtk+-3.0)
 GLIB_LDFLAGS := $(shell pkg-config --libs gtk+-3.0)
 
-CFLAGS  := -Wall -pedantic -fPIC -std=c99 -g $(GLIB_CFLAGS)
-LDFLAGS := $(GLIB_LDFLAGS)
+CFLAGS  := -Wall -pedantic -fPIC -std=c99 -g $(GLIB_CFLAGS) -I../libkorad/src/
+LDFLAGS := $(GLIB_LDFLAGS) -L../libkorad -lkorad
 
 TARGET  := koradapp.so
 SOURCES := $(wildcard src/*.c)
