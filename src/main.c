@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include "plugin.h"
 
 void app_shutdown(gpointer user_data)
 {
@@ -16,7 +17,8 @@ void destroy_plugin()
     return;
 }
 
-gulong* initialize_plugin()
+GList*
+initialize_plugin()
 {
     GtkBuilder *builder;
     builder = gtk_builder_new();
@@ -43,14 +45,16 @@ gulong* initialize_plugin()
 
     gtk_widget_show_all(GTK_WIDGET(plug));
 
-    printf("Plug-ID: %lu\n", gtk_plug_get_id(GTK_PLUG(plug)));
+    GList *views = NULL;
+    PluginViewDefinition *view = g_new0(PluginViewDefinition, 1);
 
-    gulong *views = g_new0(gulong, 2);
+    view->name = "Power Supply";
+    view->icon = "";
+    view->plug_id = gtk_plug_get_id(GTK_PLUG(plug));
 
-    views[0] = gtk_plug_get_id(GTK_PLUG(plug));
+    views = g_list_append(views, view);
 
     return views;
-
 
     /* Set up CSS style provider */
     /*GtkCssProvider *provider = gtk_css_provider_new();
